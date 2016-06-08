@@ -22,12 +22,10 @@ wrappedNode(label: "ubuntu") {
     deleteDir()
     checkout scm
     timeout(45) {
-      stage "build image"
-
+      stage "build test image"
       def imageId = "dockerbuildbot/runc-test:${gitCommit()}"
       def image
       try {
-        stage "build test image"
         sh "docker build -t ${imageId} -f script/test_Dockerfile ."
         image = docker.image(imageId)
 
