@@ -13,7 +13,7 @@ golangTester(
   label: "ubuntu && docker",
   package: packageName,
   go_version: "1.6.2",
-  env_vars: "-tags \"${buildTags}\"",
+  gocov_args: "-tags \"${buildTags}\"",
   max_warnings: 0
 )()
 
