@@ -31,14 +31,14 @@ wrappedNode(label: "ubuntu") {
 
         stage "integration test"
         sh """#!/bin/bash
+          mkdir -p results
           docker run \\
             --rm \\
             -i \\
             --privileged \\
             -v "\$(pwd):/go/src/${packageName}" \\
-            -v "\$(pwd)/results:/output" \\
             ${image.id} \\
-            make localintegration | tail -n +2 | tee /output/integration.tap
+            make localintegration | tail -n +2 | tee results/integration.tap
         """
         step([$class: "TapPublisher", testResults: "results/integration.tap"])
       } finally {
