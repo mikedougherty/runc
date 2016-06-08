@@ -35,10 +35,10 @@ wrappedNode(label: "ubuntu") {
         sh """#!/bin/bash
           docker run \\
             --rm \\
-            -it \\
+            -i \\
             --privileged \\
-            -v \$(pwd):/go/src/${packageName} \\
-            -v \$(pwd)/results:/output \\
+            -v "\$(pwd):/go/src/${packageName}" \\
+            -v "\$(pwd)/results:/output" \\
             ${image.id} \\
             make localintegration | tail -n +2 | tee /output/integration.tap
         """
