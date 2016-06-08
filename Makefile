@@ -1,3 +1,5 @@
+print-%: ; @echo $*=$($*)
+
 .PHONY: dbuild man \
 	    localtest localunittest localintegration \
 	    test unittest integration
