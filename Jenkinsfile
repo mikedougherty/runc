@@ -2,7 +2,7 @@ stage "collect build info"
 def packageName = "github.com/opencontainers/runc"
 def buildTags
 
-wrappedNode {
+wrappedNode() {
   deleteDir()
   checkout scm
   buildTags = getOutput("make print-BUILDTAGS")
