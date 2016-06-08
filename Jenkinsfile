@@ -1,7 +1,14 @@
-stage "validate and test"
-
+stage "collect build info"
 def packageName = "github.com/opencontainers/runc"
-def buildTags = getOutput("make print-BUILDTAGS")
+def buildTags
+
+wrappedNode {
+  deleteDir()
+  checkout scm
+  buildTags = getOutput("make print-BUILDTAGS")
+}
+
+stage "validate and test"
 golangTester(
   label: "ubuntu && docker",
   package: packageName,
@@ -10,7 +17,7 @@ golangTester(
   max_warnings: 0
 )()
 
-wrappedNode("ubuntu") {
+wrappedNode(label: "ubuntu") {
   withChownWorkspace {
     deleteDir()
     checkout scm
